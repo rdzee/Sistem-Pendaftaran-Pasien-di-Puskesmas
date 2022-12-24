@@ -1,4 +1,28 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-#{welcome /}
+<div id="login">
+    <p> Masuk Pasien Lama</p>
+    #{form @login(), id:'formLogin'}
+        <p class="field">
+            <label>Nama :</label>
+            <input type="text" name="username" size="19" value="${flash.username}" />
+        </p>
+        <p class="field">
+            <label>Password :</label>
+            <input type="password" name="password" size="19"/>
+        </p>    
+        <p class="buttons">
+            <input type="submit" value="Masuk" />
+        </p> 
+    #{/form}
+
+    <p>
+        <a href="@{register()}">Daftar Pasien Baru</a>
+    </p>
+
+</div>
+
+<script type="text/javascript" charset="${_response_encoding}">
+    sessvars.$.clearMem()
+</script>

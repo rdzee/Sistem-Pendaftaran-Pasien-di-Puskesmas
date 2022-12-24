@@ -1,0 +1,84 @@
+#{extends 'main.html' /}
+#{set title:'Book ' + hotel.name /}
+#{set 'moreScripts'}
+    <script src="@{'/public/javascripts/jquery-ui-1.7.2.custom.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+#{/set}
+#{set 'moreStyles'}
+    <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/ui-lightness/jquery-ui-1.7.2.custom.css'}" />
+#{/set}
+
+<h1>Pesan Puskesmas</h1>
+<h2>Informasi Puskesmas</h2>
+
+#{form @confirmBooking(hotel.id)}
+    <p>
+        <strong>Nama Puskesmas:</strong> ${hotel.name}
+    </p>
+    <p>
+        <strong>Alamat :</strong> ${hotel.address}
+    </p>
+    <p>
+        <strong>Kecamatan :</strong> ${hotel.city}
+    </p>
+    <p>
+        <strong>Kabupaten :</strong> ${hotel.state}
+    </p>
+    <p>
+        <strong>Kode pos:</strong> ${hotel.zip}
+    </p>
+    <p>
+        <strong>Provinsi :</strong> ${hotel.country}
+    </p>
+
+<h2>Data Pasien</h2>
+    #{field 'booking.creditCard'}
+        <p class="${field.errorClass}">
+            <strong>NIK :</strong> <input type="text" name="${field.name}" size="16" value="${booking?.creditCard}"> *
+            <span class="error">${field.error}</span>
+        </p>
+    #{/field}
+
+    #{field 'booking.namakepala'}
+    <p class="${field.errorClass}">
+        <strong>Nama Kepala Keluarga:</strong> <input type="text" name="${field.name}" size="16" value="${booking?.namakepala}"> *
+        <span class="error">${field.error}</span>
+    </p>
+    #{/field}
+
+    #{field 'booking.creditCardName'}
+    <p class="${field.errorClass}">
+        <strong>Nama Lengkap:</strong> <input type="text" name="${field.name}" size="16" value="${booking?.creditCardName}"> *
+        <span class="error">${field.error}</span>
+    </p>
+    #{/field}
+
+    #{field 'booking.checkinDate'}
+        <p class="${field.errorClass}">
+            <strong>Tanggal Pemesanan:</strong> <input type="text" size="10" name="${field.name}" class="datepicker" value="${booking?.checkinDate?.format('yyyy-MM-dd')}"> *
+            <span class="error">${field.error}</span>
+        </p>
+    #{/field}
+
+    #{field 'booking.alamatp'}
+        <p class="${field.errorClass}">
+            <strong>Alamat Pasien :</strong> <input type="text" name="${field.name}" size="16" value="${booking?.alamatp}"> *
+            <span class="error">${field.error}</span>
+        </p>
+    #{/field}
+
+    <p>
+        <strong>Jenis Kelamin:</strong> 
+        <input type="radio" name="booking.kelamin" value="Laki-laki" ${booking?.kelamin ? 'checked' : ''}> Laki-laki
+        <input type="radio" name="booking.kelamin" value="Perempuan" ${booking?.kelamin ? '' : 'checked'}> Perempuan
+    </p>
+
+    <p class="buttons">
+        <input type="submit" value="Proses"> <a href="@{show(hotel.id)}">Batal</a>    
+    </p>
+#{/form}
+
+<script type="text/javascript" charset="${_response_encoding}">
+    $(function() {
+		$(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+	});
+</script>

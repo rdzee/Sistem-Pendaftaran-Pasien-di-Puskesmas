@@ -1,0 +1,31 @@
+#{extends 'main.html' /}
+#{set title:hotel.name /}
+
+<h1>Lihat Puskesmas</h1>
+
+#{form @book(hotel.id)}
+    <p>
+        <strong>Nama Puskesmas :</strong> ${hotel.name}
+    </p>
+    <p>
+        <strong>Alamat :</strong> ${hotel.address}
+    </p>
+    <p>
+        <strong>Kecamatan :</strong> ${hotel.city}
+    </p>
+    <p>
+        <strong>Kabupaten :</strong> ${hotel.state}
+    </p>
+    <p>
+        <strong>Provinsi:</strong> ${hotel.country}
+    </p>
+    <p>
+        <strong>Kode Pos:</strong> ${hotel.zip}
+    </p>
+
+
+    
+    <p class="buttons">
+        <input type="submit" value="Daftar"> <a href="@{index()}">Kembali cari Puskesmas</a>      
+    </p>
+#{/form}

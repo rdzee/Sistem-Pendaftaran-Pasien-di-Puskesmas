@@ -1,0 +1,32 @@
+#{if hotels}
+    <table>
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>Alamat</th>
+                <th>Kecamatan, Kabupaten</th>
+                <th width="8%">Kode pos</th>
+                <th width="13%">Pilihan</th>
+            </tr>
+        </thead>
+        <tbody>
+            #{list hotels, as:'hotel'}
+                <tr>
+                    <td>${hotel.name}</td>
+                    <td>${hotel.address}</td>
+                    <td>${hotel.city}, ${hotel.state}, ${hotel.country}</td>
+                    <td>${hotel.zip}</td>
+                    <td>
+                        <a href="@{show(hotel.id)}">Lihat</a>
+                    </td>
+                </tr>
+            #{/list}
+        </tbody>
+    </table>
+#{/if}
+
+#{else}
+    <p>
+        No more results
+    </p>
+#{/else}      

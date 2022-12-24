@@ -1,0 +1,100 @@
+#{extends 'main.html' /}
+#{set title:'Search' /}
+
+<h1>Cari Puskesmas</h1>
+
+<p>
+    <input type="text" id="search" size="30">
+    <input type="submit" id="submit" value="Cari Puskesmas">
+
+    <br>
+
+    Maksimal tampilan: 
+    <select id="size">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+    </select>
+</p>
+
+<div id="result">
+</div>
+
+<script type="text/javascript" charset="${_response_encoding}">
+
+    // Rebuild state
+    $('#search').val(sessvars.search)    
+    if(sessvars.page == undefined) {
+        sessvars.page = 1
+    }
+    if(sessvars.size == undefined) {
+        sessvars.size = 10
+    }
+    $('#size option[value='+sessvars.size+']').attr('selected', 'true')
+    
+    // Search function
+    var search = function() {
+        sessvars.search = $('#search').val()
+        sessvars.size = $('#size').val()
+        var listAction = #{jsAction @list(':search', ':size', ':page') /} 
+        $('#result').load(listAction({search: sessvars.search, size: sessvars.size, page: sessvars.page}), function() {
+            $('#content').css('visibility', 'visible')
+        })
+    }
+    
+    // Events handler
+    $('#submit').click(function() {
+        sessvars.page = 1
+        search()
+    })
+    $('#search').keyup(function() {
+        sessvars.page = 1
+        search()
+    })
+    $('#nextPage').live('click', function(e) {
+        sessvars.page = $(this).attr('href')
+        e.preventDefault()
+        search()        
+    })
+    
+    // Init
+    if(sessvars.search != undefined) {
+        $('#content').css('visibility', 'hidden')
+        search()
+    }
+    
+</script>
+
+<h1>Status Pemesanan</h1>
+
+#{ifnot bookings}
+    <p>
+        Tidak ditemukan
+    </p>
+#{/ifnot}
+#{else}
+   <table>
+       <thead>
+           <tr>
+               <th>Nama</th>
+               <th>Alamat</th>
+               <th>Kecamatan, Kabupaten</th>
+               <th>Tanggal Pemesanan</th>
+               <th>Pilihan</th>
+           </tr>
+       </thead>
+       <tbody>
+           #{list bookings, as:'booking'}
+               <tr>
+                   <td>${booking.hotel.name}</td>
+                   <td>${booking.hotel.address}</td>
+                   <td>${booking.hotel.city}, ${booking.hotel.state}, ${booking.hotel.country}</td>
+                   <td>${booking.checkinDate.format('yyyy-MM-dd')}</td>
+                   <td>
+                        #{a @cancelBooking(booking.id)}Batalkan#{/a}
+                   </td>
+               </tr>
+           #{/list}
+       </tbody>
+   </table> 
+#{/else}

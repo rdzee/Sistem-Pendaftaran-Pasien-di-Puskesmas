@@ -1,0 +1,53 @@
+#{extends 'main.html' /}
+#{set title:'Confirm ' + hotel.name + ' booking' /}
+
+<h1>Konfirmasi Pemesanan Puskesmas</h1>
+<h2>Informasi Puskesmas</h2>
+#{form @confirmBooking(hotel.id)}
+
+    <p>
+        <strong>Nama Puskesmas:</strong> ${hotel.name}
+    </p>
+    <p>
+        <strong>Alamat :</strong> ${hotel.address}
+    </p>
+    <p>
+        <strong>Kecamatan :</strong> ${hotel.city}
+    </p>
+    <p>
+        <strong>Kabupaten :</strong> ${hotel.state}
+    </p>
+    <p>
+        <strong>Kode Pos :</strong> ${hotel.zip}
+    </p>
+    <p>
+        <strong>Kabupaten :</strong> ${hotel.country}
+    </p>
+
+<h2>Data Pasien</h2>
+    <p>
+        <strong>Tanggal Pemesanan :</strong> ${booking.checkinDate.format('yyyy-MM-dd')}
+        <input type="hidden" name="booking.checkinDate" value="${booking.checkinDate.format('yyyy-MM-dd')}">
+    </p>
+
+    <p>
+        <strong>NIK :</strong> ${booking.creditCard}
+        <input type="hidden" name="booking.creditCard" value="${booking.creditCard}">
+        <input type="hidden" name="booking.creditCardName" value="${booking.creditCardName}">
+        <input type="hidden" name="booking.creditCardExpiryMonth" value="${booking.creditCardExpiryMonth}">
+        <input type="hidden" name="booking.creditCardExpiryYear" value="${booking.creditCardExpiryYear}">
+    </p>
+    <p>
+        <strong>Nama Lengkap :</strong> ${booking.creditCardName}
+    </p>
+    <p>
+        <strong>Alamat Pasien :</strong> ${booking.alamatp}
+    </p>
+    <p>
+        <strong>Jenis Kelamin :</strong> ${booking.kelamin}
+    </p>
+    
+    <p class="buttons">
+        <input type="submit" value="Konfirmasi" name="confirm"> <input type="submit" value="Ubah" name="revise"> <a href="@{show(hotel.id)}">Batalkan</a>    
+    </p>
+#{/form}
