@@ -1,0 +1,31 @@
+# Users
+
+models.User(gavin):
+    username:   guillaume
+    password:   foobar
+    name:       Guillaume Bort
+    
+models.User(demo):
+    username:   demo
+    password:   demo
+    name:       Demo User
+
+# Hotels
+
+models.Hotel(h1):
+    price:      0
+    name:       Puskesmas Kalimanah
+    address:    JL. Jati
+    city:       Kalimanah Wetan
+    state:      Purbalingga
+    zip:        53371
+    country:    Jawa Tengah
+    
+models.Hotel(h2):
+    price:      0
+    name:       Puskesmas Karangsentul
+    address:    JL. Menjangan Sari
+    city:       Padamara
+    state:      Purbalingga
+    zip:        53372
+    country:    Jawa Tengah
